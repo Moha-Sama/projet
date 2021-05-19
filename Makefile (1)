@@ -1,0 +1,29 @@
+CXX=g++
+CXXFLAGS=-std=c++11
+EXEC_FILES=test
+
+all: test
+
+# Regle generique
+	$(CXX) -c $< $(CXXFLAGS)
+
+# fichiers objets
+
+source/code/coord.o: source/code/coord.cpp
+source/code/base.o: source/code/base.cpp
+main.o: main.cpp
+    
+# fichier executable
+
+code: source/code/coord.o source/code/base.o
+	$(CXX) -o $@ $^ $(LDFLAGS)
+    
+Projet: main.o
+	$(CXX) -o $@ $^ $(LDFLAGS)
+	rm -f *.o $(EXEC_FILES)
+
+check:test
+
+clean:
+	rm -f *.o $(EXEC_FILES)
+    
